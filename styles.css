@@ -101,6 +101,85 @@ body {
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
 }
 
+/* Modern Animated Hero Section */
+.hero-modern {
+    padding: 120px 0 80px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #7c3aed 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+/* Particle Canvas */
+.particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+/* Hero Overlay */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 50%, rgba(124, 58, 237, 0.8) 100%);
+    z-index: 2;
+}
+
+/* Floating Progress Popup */
+.progress-popup {
+    position: fixed;
+    top: 80px;
+    right: 32px;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateX(100px);
+    transition: all 0.5s ease;
+}
+
+.progress-popup.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.popup-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.popup-icon {
+    width: 12px;
+    height: 12px;
+    background: #10b981;
+    border-radius: 50%;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.popup-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.popup-subtitle {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* Hero Container */
 .hero-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -113,6 +192,13 @@ body {
     z-index: 2;
 }
 
+/* Hero Content */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
 .hero-title {
     font-size: 3.5rem;
     font-weight: 700;
@@ -121,8 +207,10 @@ body {
 }
 
 .highlight {
-    color: #fbbf24;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .hero-subtitle {
@@ -132,37 +220,640 @@ body {
     line-height: 1.6;
 }
 
+/* Startup Journey Stages */
+.startup-stages {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.stage-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.stage-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.stage-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.stage-icon.idea {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}
+
+.stage-icon.mvp {
+    background: linear-gradient(135deg, #60a5fa 0%, #8b5cf6 100%);
+}
+
+.stage-icon.growth {
+    background: linear-gradient(135deg, #34d399 0%, #14b8a6 100%);
+}
+
+.stage-icon.domination {
+    background: linear-gradient(135deg, #a78bfa 0%, #ec4899 100%);
+}
+
+.stage-icon i {
+    color: white;
+    font-size: 20px;
+}
+
+.stage-content h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.stage-content p {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-bottom: 0;
+}
+
+/* Stage Tooltips */
+.stage-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    max-width: 200px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.stage-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+.stage-card:hover .stage-tooltip {
+    opacity: 1;
+}
+
+.tooltip-quote {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.tooltip-fact {
+    opacity: 0.8;
+}
+
+/* Hero CTA */
 .hero-cta {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
 }
 
-.hero-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.hero-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+/* Form Wizard */
+.form-wizard {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 2rem;
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.wizard-header {
     text-align: center;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    margin-bottom: 32px;
 }
 
-.hero-card i {
-    font-size: 3rem;
-    color: #fbbf24;
-    margin-bottom: 1rem;
-}
-
-.hero-card h3 {
+.wizard-header h2 {
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.wizard-header p {
+    opacity: 0.8;
+    margin-bottom: 0;
+}
+
+/* Progress Bar */
+.wizard-progress {
+    margin-bottom: 24px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #60a5fa 0%, #8b5cf6 100%);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    width: 25%;
+}
+
+/* Wizard Steps */
+.wizard-content {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.wizard-step {
+    display: none;
+    width: 100%;
+    text-align: center;
+}
+
+.wizard-step.active {
+    display: block;
+}
+
+.wizard-step h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.wizard-input {
+    width: 100%;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.wizard-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.wizard-input:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.wizard-input option {
+    background: #1e293b;
+    color: white;
+}
+
+/* Summary Step */
+.summary-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.summary-icon {
+    font-size: 64px;
+    color: #10b981;
+}
+
+.summary-text {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-style: italic;
+}
+
+/* Wizard Navigation */
+.wizard-navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Startup Stages Right Side */
+.startup-stages-right {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.stages-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.stages-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.stages-header p {
+    opacity: 0.8;
+    margin-bottom: 0;
+}
+
+/* Question Card Above Stages */
+.stage-question-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+.stage-question-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.question-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+.question-icon i {
+    color: white;
+    font-size: 24px;
+}
+
+.question-content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.question-content p {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 0;
+}
+
+/* Grid Startup Stages */
+.startup-stages-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.stage-card-grid {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+}
+
+.stage-card-grid:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Blinking Animation for Each Stage */
+.stage-card-grid:nth-child(1) {
+    animation: blink 8s ease-in-out infinite;
+    animation-delay: 0s;
+}
+
+.stage-card-grid:nth-child(2) {
+    animation: blink 8s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.stage-card-grid:nth-child(3) {
+    animation: blink 8s ease-in-out infinite;
+    animation-delay: 4s;
+}
+
+.stage-card-grid:nth-child(4) {
+    animation: blink 8s ease-in-out infinite;
+    animation-delay: 6s;
+}
+
+/* Overlay Card that appears after blinking */
+.stage-overlay-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(139, 92, 246, 0.5);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.8s ease;
+    z-index: 20;
+    animation: overlayAppear 4s ease-in-out infinite;
+    animation-delay: 3s;
+}
+
+.stage-overlay-card.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.overlay-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.overlay-icon i {
+    color: white;
+    font-size: 32px;
+}
+
+.overlay-content h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.overlay-content p {
+    font-size: 16px;
+    opacity: 0.9;
+    line-height: 1.6;
+    max-width: 300px;
+}
+
+/* Blinking Animation Keyframes - Sequential */
+@keyframes blink {
+    0%, 12.5%, 100% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+    }
+    6.25% {
+        opacity: 0.3;
+        transform: scale(1.1);
+        box-shadow: 0 0 20px 10px rgba(139, 92, 246, 0.6);
+    }
+}
+
+/* Overlay Card Animation */
+@keyframes overlayAppear {
+    0%, 25% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    75%, 100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+/* Pulse Animation for Overlay Icon */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Stage Card Styles */
+.stage-number {
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: white;
+    flex-shrink: 0;
+}
+
+.stage-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stage-icon.idea {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}
+
+.stage-icon.mvp {
+    background: linear-gradient(135deg, #60a5fa 0%, #8b5cf6 100%);
+}
+
+.stage-icon.growth {
+    background: linear-gradient(135deg, #34d399 0%, #14b8a6 100%);
+}
+
+.stage-icon.domination {
+    background: linear-gradient(135deg, #a78bfa 0%, #ec4899 100%);
+}
+
+.stage-icon i {
+    color: white;
+    font-size: 24px;
+}
+
+.stage-content {
+    flex: 1;
+}
+
+.stage-content h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.stage-content p {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 0;
+}
+
+/* Stage Tooltips for Grid Layout */
+.stage-card-grid .stage-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    max-width: 200px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.stage-card-grid .stage-tooltip::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+.stage-card-grid:hover .stage-tooltip {
+    opacity: 1;
+}
+
+/* Float Animation for Question Card */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Responsive Design for Grid Stages */
+@media (max-width: 1024px) {
+    .startup-stages-grid {
+        gap: 12px;
+    }
+    
+    .stage-card-grid {
+        padding: 16px;
+    }
+    
+    .stage-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .stage-icon i {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .startup-stages-right {
+        padding: 24px;
+    }
+    
+    .stages-header h2 {
+        font-size: 1.25rem;
+    }
+    
+    .startup-stages-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .stage-card-grid {
+        flex-direction: row;
+        text-align: left;
+        gap: 16px;
+    }
+    
+    .stage-card-grid:hover {
+        transform: translateX(5px);
+    }
+    
+    .stage-card-grid .stage-tooltip {
+        left: 50%;
+        top: 100%;
+        transform: translateX(-50%);
+        margin-bottom: 0;
+        margin-top: 8px;
+    }
+    
+    .stage-card-grid .stage-tooltip::before {
+        left: 50%;
+        top: -4px;
+        transform: translateX(-50%);
+        border-top-color: transparent;
+        border-bottom-color: rgba(0, 0, 0, 0.9);
+    }
 }
 
 /* Buttons */
@@ -308,10 +999,50 @@ body {
     margin-bottom: 1rem;
 }
 
+/* Price Styling with Discount */
 .price {
-    font-size: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.original-price {
+    font-size: 18px;
+    color: #9ca3af;
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.discount-price {
+    font-size: 28px;
     font-weight: 700;
-    color: #fbbf24;
+    color: #10b981;
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+.discount-badge {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Pulse Animation for Discount Badge */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
 }
 
 .card-content {

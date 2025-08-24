@@ -31,21 +31,117 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <section id="home" class="hero-modern">
+        <!-- Animated background canvas -->
+        <canvas id="particleCanvas" class="particle-canvas"></canvas>
+        
+        <!-- Gradient overlay -->
+        <div class="hero-overlay"></div>
+        
+        <!-- Floating progress popup -->
+        <div id="progressPopup" class="progress-popup">
+            <div class="popup-content">
+                <div class="popup-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="popup-text">
+                    <p class="popup-title">First we make our choices.</p>
+                    <p class="popup-subtitle">Then our choices make us. ✓</p>
+                </div>
+            </div>
+        </div>
+
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">Build Your Startup from <span class="highlight">Zero to Success!</span></h1>
-                <p class="hero-subtitle">Learn proven strategies, get ready-to-use templates, and launch your business with expert guidance. Choose your learning path and start building today!</p>
+                <p class="hero-subtitle">Transform your ideas into thriving businesses with our proven framework. Navigate the startup journey with confidence and expert guidance.</p>
+                
+                <!-- CTA Buttons -->
                 <div class="hero-cta">
-                    <a href="#courses" class="btn btn-primary">Choose Your Learning Path</a>
-                    <a href="#products" class="btn btn-secondary">View Demo Products</a>
+                    <a href="#courses" class="btn btn-primary">Start Your Journey</a>
+                    <a href="#products" class="btn btn-secondary">View Demo</a>
                 </div>
             </div>
-            <div class="hero-image">
-                <div class="hero-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>500+ Startups Launched</h3>
-                    <p>Join our success stories</p>
+            
+            <!-- Multi-Step Form Wizard -->
+            <div class="startup-stages-right">
+                <div class="stages-header">
+                    <h2>Your Startup Journey</h2>
+                    <p>Follow these proven steps to build your successful startup</p>
+                </div>
+                
+                <!-- Startup Journey Stages Grid -->
+                <div class="startup-stages-grid">
+                    <div class="stage-card-grid" data-stage="idea">
+                        <div class="stage-number">1</div>
+                        <div class="stage-icon idea">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="stage-content">
+                            <h3>Idea Validation</h3>
+                            <p>Test your concept with real users</p>
+                        </div>
+                        <div class="stage-tooltip">
+                            <p class="tooltip-quote">"90% of startups fail"</p>
+                            <p class="tooltip-fact"> due to lack of market validation</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stage-card-grid" data-stage="mvp">
+                        <div class="stage-number">2</div>
+                        <div class="stage-icon mvp">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="stage-content">
+                            <h3>MVP Build</h3>
+                            <p>Create your minimum viable product</p>
+                        </div>
+                        <div class="stage-tooltip">
+                            <p class="tooltip-quote">"Build fast, fail fast, learn fast"</p>
+                            <p class="tooltip-fact">The average MVP takes 3-6 months to build</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stage-card-grid" data-stage="growth">
+                        <div class="stage-number">3</div>
+                        <div class="stage-icon growth">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stage-content">
+                            <h3>Growth</h3>
+                            <p>Scale your validated business model</p>
+                        </div>
+                        <div class="stage-tooltip">
+                            <p class="tooltip-quote">"Growth is never by mere chance"</p>
+                            <p class="tooltip-fact">Companies that grow 20% annually are 8x more likely to survive</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stage-card-grid" data-stage="domination">
+                        <div class="stage-number">4</div>
+                        <div class="stage-icon domination">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="stage-content">
+                            <h3>Market Domination</h3>
+                            <p>Become the industry leader</p>
+                        </div>
+                        <div class="stage-tooltip">
+                            <p class="tooltip-quote">"The goal is to be the best, not just better"</p>
+                            <p class="tooltip-fact">Market leaders capture 40-60% of total market value</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Overlay Card that appears after all stages blink -->
+                    <div class="stage-overlay-card">
+                        <div class="overlay-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="overlay-content">
+                            <h3>Which stage is your startup in?</h3>
+                            <p>Which stage that best describes your current situation.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,13 +157,19 @@
             
             <div class="course-cards">
                 <!-- Option 1: Buy Template & Start Now -->
-                <div class="course-card">
+                <div class="course-card featured ">
+                    <div class="card-badge">Popular</div>
                     <div class="card-header">
                         <div class="card-icon">
                             <i class="fas fa-rocket"></i>
                         </div>
-                        <h3>Buy Template & Start Now</h3>
-                        <div class="price">$99</div>
+                        <h3>Buy Template & Start</h3>
+                        <div class="price">
+                            <span class="original-price">Rs.497</span>
+                            <span class="discount-price">Rs.199</span>
+                            <span class="discount-badge">60% OFF</span>
+                        </div>
+                        <button class="btn btn-primary" onclick="openRazorpay('template', 199, 'Buy Template & Start')">Buy Now</button>
                     </div>
                     <div class="card-content">
                         <p>Perfect for self-starters who want to learn independently and get started immediately.</p>
@@ -78,7 +180,7 @@
                             <li><i class="fas fa-check"></i> Action Guides</li>
                             <li><i class="fas fa-check"></i> Lifetime Access</li>
                         </ul>
-                        <a href="#contact" class="btn btn-outline">Buy Now</a>
+                        <a href="#contact" class="btn btn-outline" onclick="openRazorpay('template', 199, 'Buy Template & Start')">Buy Now</a>
                     </div>
                 </div>
 
@@ -90,7 +192,12 @@
                             <i class="fab fa-whatsapp"></i>
                         </div>
                         <h3>WhatsApp Learning</h3>
-                        <div class="price">$199</div>
+                        <div class="price">
+                            <span class="original-price">Rs.1,799</span>
+                            <span class="discount-price">Rs.499</span>
+                            <span class="discount-badge">70% OFF</span>
+                        </div>
+                        <button class="btn btn-primary" onclick="openRazorpay('whatsapp', 499, 'WhatsApp Learning')">Start Now</button>
                     </div>
                     <div class="card-content">
                         <p>Personalized learning via WhatsApp with daily lessons, feedback, and community support.</p>
@@ -101,18 +208,24 @@
                             <li><i class="fas fa-check"></i> Progress Tracking</li>
                             <li><i class="fas fa-check"></i> 3 Months Access</li>
                         </ul>
-                        <a href="#contact" class="btn btn-primary">Start Now</a>
+                        <a href="#contact" class="btn btn-outline" onclick="openRazorpay('whatsapp', 499, 'WhatsApp Learning')">Start Now</a>
                     </div>
                 </div>
 
                 <!-- Option 3: Live Course One-to-One -->
-                <div class="course-card">
+                <div class="course-card featured">
+                    <div class="card-badge">Premium</div>
                     <div class="card-header">
                         <div class="card-icon">
                             <i class="fas fa-video"></i>
                         </div>
                         <h3>Live Course One-to-One</h3>
-                        <div class="price">$499</div>
+                        <div class="price">
+                            <span class="original-price">Rs.4,999</span>
+                            <span class="discount-price">Rs.4,499</span>
+                            <span class="discount-badge">10% OFF</span>
+                        </div>
+                        <button class="btn btn-primary" onclick="openRazorpay('live', 4499, 'Live Course One-to-One')">Enroll Now</button>
                     </div>
                     <div class="card-content">
                         <p>Personalized coaching sessions with direct mentorship and implementation support.</p>
@@ -123,7 +236,7 @@
                             <li><i class="fas fa-check"></i> Implementation Support</li>
                             <li><i class="fas fa-check"></i> 6 Sessions Package</li>
                         </ul>
-                        <a href="#contact" class="btn btn-outline">Enroll Now</a>
+                        <a href="#contact" class="btn btn-outline" onclick="openRazorpay('live', 4499, 'Live Course One-to-One')">Enroll Now</a>
                     </div>
                 </div>
             </div>
@@ -407,6 +520,7 @@
         </div>
     </footer>
 
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
